@@ -263,6 +263,37 @@ public class CommandsAssistant extends Commands {
     }
 
     @Command(
+            name = "reset",
+            permission = "mytown.cmd.assistant.perm.set",
+            parentName = "mytown.cmd.everyone.perm",
+            syntax = "/town perm reset")
+    public static CommandResponse permResetCommand(ICommandSender sender, List<String> args) {
+
+        Resident res = MyTownUniverse.instance.getOrMakeResident(sender);
+        TownBlock b = MyTownUniverse.instance.blocks.get(res.getPlayer().dimension, res.getPlayer().chunkCoordX, res.getPlayer().chunkCoordZ);
+
+        if(b == null || b.getTown() == null) {
+            throw new MyTownCommandException("mytown.cmd.assistant.permfix.notown");
+        }
+
+        Town town = b.getTown();
+        if(!town.hasPermission(res, "mytown.cmd.everyone.perm")) {
+            throw new MyTownCommandException("mytown.cmd.assistant.permfix.nopermission");
+        }
+
+        for (FlagType type : FlagType.values()) {
+            if (type.isTownPerm) {
+                Flag h = getFlagFromType(town.flagsContainer, type);
+                h.setValue(type.defaultValue.toString());
+                getDatasource().saveFlag(h, town);
+            }
+        }
+
+        ChatManager.send(sender, "mytown.notification.town.reset");
+        return CommandResponse.DONE;
+    }
+
+    @Command(
             name = "toggle",
             permission = "mytown.cmd.assistant.perm.toggle",
             parentName = "mytown.cmd.everyone.perm",
@@ -274,7 +305,17 @@ public class CommandsAssistant extends Commands {
         }
 
         Resident res = MyTownUniverse.instance.getOrMakeResident(sender);
-        Town town = getTownFromResident(res);
+        TownBlock b = MyTownUniverse.instance.blocks.get(res.getPlayer().dimension, res.getPlayer().chunkCoordX, res.getPlayer().chunkCoordZ);
+
+        if(b == null || b.getTown() == null) {
+            throw new MyTownCommandException("mytown.cmd.assistant.permfix.notown");
+        }
+
+        Town town = b.getTown();
+        if(!town.hasPermission(res, "mytown.cmd.everyone.perm")) {
+            throw new MyTownCommandException("mytown.cmd.assistant.permfix.nopermission");
+        }
+
         Flag flag = getFlagFromName(town.flagsContainer, args.get(0));
 
         if (!flag.flagType.configurable) {

@@ -193,7 +193,14 @@ public class CommandsEveryone extends Commands {
             syntax = "/town perm list")
     public static CommandResponse permListCommand(ICommandSender sender, List<String> args) {
         Resident res = MyTownUniverse.instance.getOrMakeResident(sender);
-        Town town = getTownFromResident(res);
+        TownBlock b = MyTownUniverse.instance.blocks.get(res.getPlayer().dimension, res.getPlayer().chunkCoordX, res.getPlayer().chunkCoordZ);
+
+        if(b == null || b.getTown() == null) {
+            throw new MyTownCommandException("mytown.cmd.assistant.permfix.notown");
+        }
+
+        Town town = b.getTown();
+
         ChatManager.send(sender, town.flagsContainer.toChatMessage());
         return CommandResponse.DONE;
     }
