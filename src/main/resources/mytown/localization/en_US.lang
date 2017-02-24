@@ -500,3 +500,4 @@ mytown.adm.cmd.claim.chunkload.all.help={|Chunkloads all the chunks from a given
 mytown.cmd.assistant.permfix.notown={|Você não esta em uma Town.}
 mytown.cmd.assistant.permfix.nopermission={|Você não possui permissão nesta Town.}
 mytown.notification.town.reset={|As permissões da town foram resetadas.}
+mytown.format.stick.long={%s}{6N| - }{2N| Residents: }{%s}{2N| Ranks: }{%s}

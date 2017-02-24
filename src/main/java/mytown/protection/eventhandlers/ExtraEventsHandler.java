@@ -10,11 +10,10 @@ import myessentials.localization.api.LocalManager;
 import myessentials.utils.ChatUtils;
 import myessentials.utils.WorldUtils;
 import mytown.MyTown;
-import mytown.entities.Resident;
-import mytown.entities.Town;
+import mytown.api.container.ResidentRankMap;
+import mytown.config.Config;
+import mytown.entities.*;
 import mytown.new_datasource.MyTownUniverse;
-import mytown.entities.TownBlock;
-import mytown.entities.Wild;
 import mytown.entities.flag.FlagType;
 import mytown.util.exceptions.MyTownCommandException;
 import net.minecraft.item.Item;
@@ -67,6 +66,9 @@ public class ExtraEventsHandler {
     @SubscribeEvent
     public void stick(PlayerInteractEvent e) {
         if(e.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK || e.action == PlayerInteractEvent.Action.RIGHT_CLICK_AIR) {
+            if(e.entityPlayer == null || e.entityPlayer.getCurrentEquippedItem() == null || e.entityPlayer.getCurrentEquippedItem().getItem() == null) {
+                return;
+            }
             if(e.entityPlayer.getCurrentEquippedItem().getItem() == GameRegistry.findItem("minecraft", "stick")) {
                 final Resident res = MyTownUniverse.instance.getOrMakeResident(e.entityPlayer);
 
@@ -78,9 +80,23 @@ public class ExtraEventsHandler {
 
                 Town town = b.getTown();
 
-                IChatComponent header = LocalManager.get("myessentials.format.list.header", new ChatComponentFormatted("{9|%s}", town.getName()));
+                if(town instanceof AdminTown) {
+                    return;
+                }
+
                 b.getTown().townBlocksContainer.show(MyTownUniverse.instance.getOrMakeResident(e.entityPlayer));
-                ChatManager.send(e.entityPlayer, "mytown.format.town.long", header, town.residentsMap.size(), town.townBlocksContainer.size(), town.getMaxBlocks(), town.plotsContainer.size(), town.residentsMap, town.ranksContainer);
+                ResidentRankMap rankmap = (ResidentRankMap) town.residentsMap.clone();
+                rankmap.remove(rankmap.getMayor());
+
+                String upkeep = "";
+
+                if(Config.instance.costTownUpkeep.get() <= 0) {
+                    upkeep = "Desativado";
+                }else{
+                    upkeep = String.valueOf(Config.instance.upkeepTownDeletionDays.get() - town.bank.getDaysNotPaid());
+                }
+
+                ChatManager.send(e.entityPlayer, "mytown.format.stick.long", town.getName(), town.residentsMap.getMayor().getPlayerName(), rankmap, upkeep);
 
                 MyTown.instance.timer.schedule(
                     new TimerTask() {
