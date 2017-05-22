@@ -37,6 +37,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
+import org.apache.commons.lang3.math.NumberUtils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -211,6 +212,42 @@ public class CommandsAdmin extends Commands {
                 ChatManager.send(sender, "mytown.notification.town.deleted", town);
             }
         }
+        return CommandResponse.DONE;
+    }
+
+    @Command(
+            name = "deleteall",
+            permission = "mytown.adm.cmd.delete",
+            parentName = "mytown.adm.cmd",
+            syntax = "/townadmin deleteall <dim-id>",
+            console = true)
+    public static CommandResponse deleteAllCommand(ICommandSender sender, List<String> args) {
+        if (args.size() < 1) {
+            return CommandResponse.SEND_SYNTAX;
+        }
+
+        if(!NumberUtils.isNumber(args.get(0))) {
+            return CommandResponse.SEND_SYNTAX;
+        }
+
+        if(getUniverse().towns.size() <= 0) {
+            sender.addChatMessage(new ChatComponentText("§cNão há towns para serem deletadas."));
+            return CommandResponse.DONE;
+        }
+
+        ArrayList<Town> to_delete = new ArrayList<Town>();
+
+        for(Town town : getUniverse().towns) {
+            if(town.getSpawnDim() == Integer.valueOf(args.get(0))) {
+                to_delete.add(town);
+            }
+        }
+
+        for(Town td : to_delete) {
+            getDatasource().deleteTown(td);
+        }
+
+        sender.addChatMessage(new ChatComponentText("§aTodas as towns da dimensão " + args.get(0) + " foram deletadas."));
         return CommandResponse.DONE;
     }
 

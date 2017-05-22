@@ -274,3 +274,21 @@
 [14:07:27] [Test worker/INFO] [LaunchWrapper]: Loading tweak class name cpw.mods.fml.common.launcher.FMLServerTweaker
 [14:07:27] [Test worker/INFO] [LaunchWrapper]: Using primary tweak class name cpw.mods.fml.common.launcher.FMLServerTweaker
 [14:07:27] [Test worker/INFO] [LaunchWrapper]: Calling tweak class cpw.mods.fml.common.launcher.FMLServerTweaker
+[14:29:45] [Test worker/INFO] [GradleStart]: Extra: [--tweakClass, cpw.mods.fml.common.launcher.FMLServerTweaker]
+[14:29:45] [Test worker/INFO] [GradleStart]: GradleStart coremod searching disabled!
+[14:29:45] [Test worker/INFO] [GradleStart]: Running with arguments: [--tweakClass, cpw.mods.fml.common.launcher.FMLServerTweaker]
+[14:29:45] [Test worker/INFO] [LaunchWrapper]: Loading tweak class name cpw.mods.fml.common.launcher.FMLServerTweaker
+[14:29:45] [Test worker/INFO] [LaunchWrapper]: Using primary tweak class name cpw.mods.fml.common.launcher.FMLServerTweaker
+[14:29:45] [Test worker/INFO] [LaunchWrapper]: Calling tweak class cpw.mods.fml.common.launcher.FMLServerTweaker
+[14:37:44] [Test worker/INFO] [GradleStart]: Extra: [--tweakClass, cpw.mods.fml.common.launcher.FMLServerTweaker]
+[14:37:44] [Test worker/INFO] [GradleStart]: GradleStart coremod searching disabled!
+[14:37:44] [Test worker/INFO] [GradleStart]: Running with arguments: [--tweakClass, cpw.mods.fml.common.launcher.FMLServerTweaker]
+[14:37:44] [Test worker/INFO] [LaunchWrapper]: Loading tweak class name cpw.mods.fml.common.launcher.FMLServerTweaker
+[14:37:44] [Test worker/INFO] [LaunchWrapper]: Using primary tweak class name cpw.mods.fml.common.launcher.FMLServerTweaker
+[14:37:44] [Test worker/INFO] [LaunchWrapper]: Calling tweak class cpw.mods.fml.common.launcher.FMLServerTweaker
+[14:43:39] [Test worker/INFO] [GradleStart]: Extra: [--tweakClass, cpw.mods.fml.common.launcher.FMLServerTweaker]
+[14:43:39] [Test worker/INFO] [GradleStart]: GradleStart coremod searching disabled!
+[14:43:39] [Test worker/INFO] [GradleStart]: Running with arguments: [--tweakClass, cpw.mods.fml.common.launcher.FMLServerTweaker]
+[14:43:39] [Test worker/INFO] [LaunchWrapper]: Loading tweak class name cpw.mods.fml.common.launcher.FMLServerTweaker
+[14:43:39] [Test worker/INFO] [LaunchWrapper]: Using primary tweak class name cpw.mods.fml.common.launcher.FMLServerTweaker
+[14:43:39] [Test worker/INFO] [LaunchWrapper]: Calling tweak class cpw.mods.fml.common.launcher.FMLServerTweaker

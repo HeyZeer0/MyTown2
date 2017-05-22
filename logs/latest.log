@@ -1,5 +1,5 @@
-[14:07:35] [Server thread/INFO]: Starting minecraft server version 1.7.10
-[14:07:43] [Server thread/ERROR]: Encountered an unexpected exception
+[14:43:48] [Server thread/INFO]: Starting minecraft server version 1.7.10
+[14:43:55] [Server thread/ERROR]: Encountered an unexpected exception
 java.lang.NoSuchFieldError: field_150348_b
 	at br.com.gamemods.universalcoinsserver.CommonProxy.<clinit>(CommonProxy.java:37) ~[CommonProxy.class:?]
 	at br.com.gamemods.universalcoinsserver.UniversalCoinsServer.<clinit>(UniversalCoinsServer.java:33) ~[UniversalCoinsServer.class:?]
@@ -33,4 +33,4 @@ java.lang.NoSuchFieldError: field_150348_b
 	at net.minecraft.server.dedicated.DedicatedServer.startServer(DedicatedServer.java:120) ~[DedicatedServer.class:?]
 	at net.minecraft.server.MinecraftServer.run(MinecraftServer.java:445) [MinecraftServer.class:?]
 	at net.minecraft.server.MinecraftServer$2.run(MinecraftServer.java:752) [MinecraftServer$2.class:?]
-[14:07:43] [Server thread/ERROR]: This crash report has been saved to: C:\Users\HeyZeer0\IdeaProjects\MyTown2-MagiTech\.\crash-reports\crash-2017-02-21_14.07.43-server.txt
+[14:43:55] [Server thread/ERROR]: This crash report has been saved to: C:\Users\HeyZeer0\IdeaProjects\MyTown2-MagiTech\.\crash-reports\crash-2017-05-10_14.43.55-server.txt
