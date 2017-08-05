@@ -80,7 +80,7 @@ public class ExtraEventsHandler {
                         }
                     }
 
-                    Set<Town> townsNear = new TreeSet<Town>();
+                    Set<Town> townsNear = new HashSet<Town>();
 
                     for (Chunk chunk : area) {
                         TownBlock chunkAt = MyTownUniverse.instance.blocks.get(e.entityPlayer.dimension, chunk.xPosition, chunk.zPosition);
