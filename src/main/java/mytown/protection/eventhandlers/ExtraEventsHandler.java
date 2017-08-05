@@ -56,7 +56,6 @@ public class ExtraEventsHandler {
             } else {
                 if (!(Boolean) block.getTown().flagsContainer.getValue(FlagType.EXPLOSIONS)) {
                     ev.setCanceled(true);
-                    block.getTown().notifyEveryone(MyTown.instance.LOCAL.getLocalization(FlagType.EXPLOSIONS.getTownNotificationKey()));
                     return;
                 }
             }
