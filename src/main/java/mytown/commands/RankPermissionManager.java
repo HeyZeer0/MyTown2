@@ -1,12 +1,12 @@
 package mytown.commands;
 
+import myessentials.chat.api.ChatManager;
 import myessentials.utils.PlayerUtils;
 import mypermissions.permission.core.bridge.IPermissionBridge;
 import mypermissions.permission.core.entities.PermissionLevel;
 import mytown.new_datasource.MyTownUniverse;
 import mytown.entities.Resident;
 import mytown.entities.Town;
-import mytown.util.exceptions.MyTownCommandException;
 import net.minecraft.entity.player.EntityPlayer;
 
 import java.util.UUID;
@@ -24,10 +24,12 @@ RankPermissionManager implements IPermissionBridge {
         Town town = Commands.getTownFromResident(resident);
         if(town != null) {
             if(town.residentsMap.get(resident).permissionsContainer.hasPermission(permission) != PermissionLevel.ALLOWED) {
-                throw new MyTownCommandException("mytown.cmd.err.rankPerm");
+                ChatManager.send(player, "mytown.cmd.err.rankPerm");
+                return false;
             }
         }else{
-            throw new MyTownCommandException("mytown.cmd.err.partOfTown");
+            ChatManager.send(player, "mytown.cmd.err.partOfTown");
+            return false;
         }
         return true;
     }
