@@ -18,11 +18,11 @@ import mytown.entities.flag.FlagType;
 import mytown.util.exceptions.MyTownCommandException;
 import net.minecraft.item.Item;
 import net.minecraft.util.IChatComponent;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.ExplosionEvent;
 
-import java.util.List;
-import java.util.TimerTask;
+import java.util.*;
 
 /**
  * Handling any events that are not yet compatible with the most commonly used version of forge.
@@ -68,8 +68,42 @@ public class ExtraEventsHandler {
             if(e.entityPlayer == null || e.entityPlayer.getCurrentEquippedItem() == null || e.entityPlayer.getCurrentEquippedItem().getItem() == null) {
                 return;
             }
+
             if(e.entityPlayer.getCurrentEquippedItem().getItem() == GameRegistry.findItem("minecraft", "stick")) {
                 final Resident res = MyTownUniverse.instance.getOrMakeResident(e.entityPlayer);
+
+                if(e.entityPlayer.isSneaking()) {
+                    List<Chunk> area = new ArrayList<Chunk>();
+                    for (int x = -2; x <= 2; x++) {
+                        for (int z = -2; z <= 2; z++) {
+                            area.add(e.world.getChunkFromChunkCoords(e.entityPlayer.chunkCoordX + x, e.entityPlayer.chunkCoordZ + z));
+                        }
+                    }
+
+                    Set<Town> townsNear = new TreeSet<Town>();
+
+                    for (Chunk chunk : area) {
+                        TownBlock chunkAt = MyTownUniverse.instance.blocks.get(e.entityPlayer.dimension, chunk.xPosition, chunk.zPosition);
+                        if (chunkAt != null && chunkAt.getTown() != null) {
+                            Town town = chunkAt.getTown();
+                            if (town instanceof AdminTown) return;
+                            townsNear.add(town);
+                        }
+                    }
+
+                    for (final Town townToShow : townsNear) {
+                        townToShow.townBlocksContainer.show(MyTownUniverse.instance.getOrMakeResident(e.entityPlayer));
+                        MyTown.instance.timer.schedule(new TimerTask() {
+                                    @Override
+                                    public void run() {
+                                        townToShow.townBlocksContainer.hide(res);
+                                    }
+                                }, 15000);
+                    }
+
+                    return;
+
+                }
 
                 final TownBlock b = MyTownUniverse.instance.blocks.get(res.getPlayer().dimension, res.getPlayer().chunkCoordX, res.getPlayer().chunkCoordZ);
 
